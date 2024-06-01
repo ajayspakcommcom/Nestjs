@@ -1,0 +1,60 @@
+src/
+│
+├── app/
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   └── app.service.ts
+│
+├── modules/
+│   ├── sample/
+│   │   ├── sample.controller.ts
+│   │   ├── sample.module.ts
+│   │   ├── sample.service.ts
+│   │   └── dto/
+│   │       └── sample.dto.ts
+│   │
+│   ├── users/
+│   │   ├── users.controller.ts
+│   │   ├── users.module.ts
+│   │   ├── users.service.ts
+│   │   └── dto/
+│   │       └── user.dto.ts
+│   │
+│   └── ...
+│
+├── filters/
+│   └── custom-exception.filter.ts
+│
+├── guards/
+│   └── auth.guard.ts
+│
+├── interceptors/
+│   └── logging.interceptor.ts
+│
+├── middlewares/
+│   └── request-logger.middleware.ts
+│
+├── pipes/
+│   └── validation.pipe.ts
+│
+├── config/
+│   ├── app.config.ts
+│   ├── database.config.ts
+│   └── jwt.config.ts
+│
+├── assets/
+│   ├── images/
+│   ├── styles/
+│   └── ...
+│
+├── tests/
+│   ├── e2e/
+│   │   ├── sample.e2e-spec.ts
+│   │   ├── users.e2e-spec.ts
+│   │   └── ...
+│   └── unit/
+│       ├── sample.service.spec.ts
+│       ├── users.controller.spec.ts
+│       └── ...
+│
+└── main.ts

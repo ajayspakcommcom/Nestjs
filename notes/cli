@@ -1,0 +1,13 @@
+
+npm install -g @nestjs/cli
+nest new my-nest-app
+npm run start:dev
+
+
+
+
+nest generate module sample
+nest generate controller sample
+nest generate service sample
+
+
