@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Put, Delete, UseFilters } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, UseFilters, UseGuards } from '@nestjs/common';
 import { CustomExceptionFilter } from 'src/filters/custom-exception.filter';
 import { SampleService } from './sample.service';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('sample')
+@UseGuards(AuthGuard)
 @UseFilters(new CustomExceptionFilter())
 export class SampleController {
     constructor(private readonly sampleService: SampleService) { }

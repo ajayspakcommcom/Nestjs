@@ -2,8 +2,10 @@ import { Controller, Get, Post, Put, Delete, UseGuards, UsePipes, UseInterceptor
 import { ProductService } from './product.service';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('product')
+@UseGuards(AuthGuard)
 @UseInterceptors(LoggingInterceptor)
 export class ProductController {
     constructor(private readonly productService: ProductService) { }
