@@ -12,7 +12,12 @@ async function bootstrap() {
   config();
   const app = await NestFactory.create(AppModule);
   //app.use(RequestLoggerMiddleware); // Global Level Middle Ware
-  app.enableCors();
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+    allowedHeaders: "*",
+  });
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new LoggingInterceptor());
