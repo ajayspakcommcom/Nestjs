@@ -11,11 +11,11 @@ async function bootstrap() {
   // dotenv.config();
   config();
   const app = await NestFactory.create(AppModule);
+  //app.use(RequestLoggerMiddleware); // Global Level Middle Ware
   app.enableCors();
   app.useGlobalFilters(new CustomExceptionFilter());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new LoggingInterceptor());
-  //app.use(RequestLoggerMiddleware);
   await app.listen(3000);
 }
 bootstrap();
