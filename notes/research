@@ -1,0 +1,31 @@
+
+Controller 
+Routing: Controllers define routes for handling different HTTP methods (GET, POST, PUT, DELETE, etc.) on specific endpoints. Each route is associated with a controller method (also known as an action or handler) that executes the logic for that route.
+
+Decorators: NestJS uses decorators to define routes and map them to controller methods. For example, the @Controller() decorator is used to define a controller, and the @Get(), @Post(), @Put(), @Delete(), etc., decorators are used to define routes for different HTTP methods.
+
+Dependency Injection: Controllers can inject dependencies using constructor injection. This allows controllers to access services, repositories, or other dependencies required to handle requests effectively.
+
+Request Handling: Controller methods receive the incoming HTTP request object (usually req) and can access request parameters, query parameters, request body, headers, etc., to process the request.
+
+Response Handling: Controller methods return the response to the client. This can be done by returning data directly (e.g., JSON data) or by returning a Promise or an Observable that resolves to the response data.
+
+Middleware: NestJS allows middleware to be applied at the controller level, allowing common pre-processing or post-processing logic to be applied to all routes within a controller.
+
+Testing: Controllers can be easily unit tested using NestJS's testing utilities, allowing you to write tests to ensure that controller methods handle requests and responses correctly.
+
+
+
+
+Module
+Encapsulation: Modules encapsulate related functionality into cohesive units. They group together components such as controllers, services, pipes, guards, and providers that are related to each other.
+
+Dependency Management: Modules define the scope of the components they contain. They control the visibility of these components within the module and determine how they can be accessed or shared with other parts of the application.
+
+Organization: Modules provide a structured way to organize your application's codebase. By organizing components into modules, you can improve code maintainability, readability, and scalability.
+
+Dependency Injection: NestJS uses dependency injection to manage dependencies between components. Modules serve as the context for dependency injection, defining the scope and lifecycle of the components within the module.
+
+Feature Segregation: Modules help segregate features of your application. You can create separate modules for different parts of your application, such as authentication, user management, data access, etc., making it easier to manage and scale your application.
+
+Reusability: Modules can be reused across different parts of your application or even in other projects. You can create standalone modules that encapsulate specific functionality and then import them into other modules as needed.
