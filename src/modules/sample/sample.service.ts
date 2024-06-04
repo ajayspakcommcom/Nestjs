@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SampleService {
+
     getHello(): string {
         return 'Sample Get Hello!';
     }
@@ -17,6 +18,7 @@ export class SampleService {
     deleteGoodbye(): string {
         return 'Sample Delete Hello!';
     }
+
 }
 
 

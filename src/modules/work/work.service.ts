@@ -1,10 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { BeforeApplicationShutdown, Injectable } from '@nestjs/common';
 
 
 @Injectable()
 export class WorkService {
-
-
 
     getHello(): string {
         return 'Work Get Hello!';

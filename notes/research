@@ -35,3 +35,14 @@ logging, authentication, validation, or modifying the request or response.
 
 Pipes 
 Validation Transformation Sanitization Logging Customization
+
+
+Lifecycle Events 
+    Module Initialization
+        OnModuleInit, 
+        OnModuleDestroy
+        
+    Application Bootstrap, 
+    Request Lifecycle, 
+    WebSocket Lifecycle, 
+    Custom Lifecycle Events
