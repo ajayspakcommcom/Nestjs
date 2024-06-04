@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Put, Delete, UsePipes, UseGuards } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { ValidationPipe } from 'src/pipes/validation.pipe';
-import { RequestLoggerMiddleware } from 'src/middlewares/request-logger.middleware';
 import { AuthGuard } from 'src/guards/auth.guard';
 
 @Controller('employee')

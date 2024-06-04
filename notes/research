@@ -15,8 +15,6 @@ Middleware: NestJS allows middleware to be applied at the controller level, allo
 Testing: Controllers can be easily unit tested using NestJS's testing utilities, allowing you to write tests to ensure that controller methods handle requests and responses correctly.
 
 
-
-
 Module
 Encapsulation: Modules encapsulate related functionality into cohesive units. They group together components such as controllers, services, pipes, guards, and providers that are related to each other.
 
@@ -29,3 +27,11 @@ Dependency Injection: NestJS uses dependency injection to manage dependencies be
 Feature Segregation: Modules help segregate features of your application. You can create separate modules for different parts of your application, such as authentication, user management, data access, etc., making it easier to manage and scale your application.
 
 Reusability: Modules can be reused across different parts of your application or even in other projects. You can create standalone modules that encapsulate specific functionality and then import them into other modules as needed.
+
+
+Middleware 
+logging, authentication, validation, or modifying the request or response.
+
+
+Pipes 
+Validation Transformation Sanitization Logging Customization

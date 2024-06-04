@@ -5,13 +5,11 @@ import { config } from 'dotenv';
 import { CustomExceptionFilter } from './filters/custom-exception.filter';
 import { ValidationPipe } from './pipes/validation.pipe';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
-import { RequestLoggerMiddleware } from './middlewares/request-logger.middleware';
 
 async function bootstrap() {
   // dotenv.config();
   config();
   const app = await NestFactory.create(AppModule);
-  //app.use(RequestLoggerMiddleware); // Global Level Middle Ware
   app.enableCors({
     origin: ['http://localhost:3000'],
     methods: ["GET", "POST", "PUT", "DELETE"],

@@ -8,6 +8,9 @@ import { EmployeeModule } from 'src/modules/employee/employee.module';
 import { TaskModule } from 'src/modules/task/task.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { WorkModule } from 'src/modules/work/work.module';
+import { RequestLoggerMiddleware } from 'src/middlewares/request-logger.middleware';
+import { AuthMiddleware } from 'src/middlewares/authentication.middleware';
+import { AuthService } from 'src/services/auth.service';
 
 @Module({
   imports: [
@@ -20,7 +23,11 @@ import { WorkModule } from 'src/modules/work/work.module';
     WorkModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AuthService],
 })
-export class AppModule {
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(RequestLoggerMiddleware).forRoutes('*');
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
 }
