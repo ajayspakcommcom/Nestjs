@@ -1,0 +1,102 @@
+1. Install Dependencies: First, you need to install the necessary packages for JWT authentication and encryption. You'll typically need @nestjs/jwt for JWT handling and bcryptjs for password hashing.
+
+    npm install @nestjs/jwt bcryptjs
+
+2. Configure JWT Module: In your NestJS module (often app.module.ts), import the JwtModule and configure it with your desired options. You'll need to provide a secret key for JWT signing.
+
+    // app.module.ts
+
+    import { Module } from '@nestjs/common';
+    import { JwtModule } from '@nestjs/jwt';
+
+    @Module({
+    imports: [
+        JwtModule.register({
+        secret: 'your_secret_key', // Change this to a strong, randomly generated secret
+        signOptions: { expiresIn: '1h' }, // Token expiration time
+        }),
+    ],
+    })
+    export class AppModule {}
+
+3. Create Authentication Service: Create a service to handle authentication logic, such as validating user credentials and generating JWT tokens.
+
+    // auth.service.ts
+
+    import { Injectable } from '@nestjs/common';
+    import { JwtService } from '@nestjs/jwt';
+    import * as bcrypt from 'bcryptjs';
+
+    @Injectable()
+    export class AuthService {
+    constructor(private readonly jwtService: JwtService) {}
+
+    async validateUser(username: string, password: string): Promise<any> {
+        // Here, you would typically validate the user against a database
+        // For demonstration, I'm using hardcoded values
+        if (username === 'user' && password === 'password') {
+        return { userId: 1, username: 'user' };
+        }
+        return null;
+    }
+
+    async login(user: any) {
+        const payload = { username: user.username, sub: user.userId };
+        return {
+        access_token: this.jwtService.sign(payload),
+        };
+    }
+    }
+
+4. Create Authentication Controller: Create a controller to handle authentication endpoints, such as login.
+    // auth.controller.ts
+
+    import { Controller, Post, Body } from '@nestjs/common';
+    import { AuthService } from './auth.service';
+
+    @Controller('auth')
+    export class AuthController {
+    constructor(private readonly authService: AuthService) {}
+
+    @Post('login')
+    async login(@Body() body: { username: string; password: string }) {
+        const user = await this.authService.validateUser(body.username, body.password);
+        if (!user) {
+        return { message: 'Invalid credentials' };
+        }
+        return this.authService.login(user);
+    }
+    }
+
+5. Protect Routes with JWT: Use guards to protect routes that require authentication. You can create a custom JwtAuthGuard for this purpose.
+
+    // jwt-auth.guard.ts
+
+    import { Injectable } from '@nestjs/common';
+    import { AuthGuard } from '@nestjs/passport';
+
+    @Injectable()
+    export class JwtAuthGuard extends AuthGuard('jwt') {}
+
+
+
+ Then, use this guard in your controllers:
+
+    // some.controller.ts
+
+    import { Controller, Get, UseGuards } from '@nestjs/common';
+    import { JwtAuthGuard } from './jwt-auth.guard';
+
+    @Controller('some')
+    export class SomeController {
+    @Get('protected')
+    @UseGuards(JwtAuthGuard)
+    getProtectedData() {
+        return { message: 'This is protected data' };
+    }
+    }
+
+
+6. Test Your Authentication: Now, you can test your authentication endpoints using tools like Postman or curl.
+
+    

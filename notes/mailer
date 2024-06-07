@@ -1,0 +1,66 @@
+1. Install Dependencies: First, you need to install nodemailer for sending emails.
+    npm install nodemailer
+
+2. Configure Nodemailer: Create a Nodemailer configuration module to specify your email service provider settings.
+
+    // nodemailer.config.ts
+
+    import { createTransport } from 'nodemailer';
+
+    export const nodemailerConfig = {
+    transport: createTransport({
+        service: 'Gmail',
+        auth: {
+        user: 'your_email@gmail.com',
+        pass: 'your_password',
+        },
+    }),
+    };
+
+
+3. Create Email Service: Create an email service to handle sending emails using Nodemailer.
+    // email.service.ts
+
+    import { Injectable } from '@nestjs/common';
+    import { nodemailerConfig } from './nodemailer.config';
+
+    @Injectable()
+    export class EmailService {
+    constructor() {}
+
+    async sendEmail(to: string, subject: string, text: string) {
+        try {
+        await nodemailerConfig.transport.sendMail({
+            from: 'your_email@gmail.com',
+            to,
+            subject,
+            text,
+        });
+        console.log('Email sent successfully');
+        } catch (error) {
+        console.error('Error sending email:', error);
+        }
+    }
+    }
+
+4. Inject Email Service: Inject the EmailService into your controllers or services where you want to send emails.
+
+    // some.controller.ts
+
+    import { Controller, Post, Body } from '@nestjs/common';
+    import { EmailService } from './email.service';
+
+    @Controller('email')
+    export class SomeController {
+    constructor(private readonly emailService: EmailService) {}
+
+    @Post('send')
+    async sendEmail(@Body() body: { to: string; subject: string; text: string }) {
+        await this.emailService.sendEmail(body.to, body.subject, body.text);
+        return { message: 'Email sent successfully' };
+    }
+    }
+
+5. Use the Email Service: Use the sendEmail method of the EmailService to send emails in your controllers or services.
+
+6. Testing: Now, you can test sending emails by making POST requests to the /email/send endpoint with the recipient email address, subject, and text as the request body.
