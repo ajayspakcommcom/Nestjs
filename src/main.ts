@@ -7,7 +7,7 @@ import { ValidationPipe } from './pipes/validation.pipe';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 async function bootstrap() {
-  // dotenv.config();
+  //dotenv.config();
   config();
   const app = await NestFactory.create(AppModule);
   app.enableCors({
