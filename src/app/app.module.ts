@@ -11,9 +11,11 @@ import { WorkModule } from 'src/modules/work/work.module';
 import { RequestLoggerMiddleware } from 'src/middlewares/request-logger.middleware';
 import { AuthMiddleware } from 'src/middlewares/authentication.middleware';
 import { AuthService } from 'src/services/auth.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ envFilePath: '.env' }),
     MongooseModule.forRoot(process.env.DB_URI),
     SampleModule,
     UserModule,

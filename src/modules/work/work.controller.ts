@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { WorkService } from './work.service';
 import { UppercasePipe } from 'src/pipes/uppercase.pipe';
 import { ParseIntPipe } from 'src/pipes/parse-int.pipe';
+import { LowercasePipe } from 'src/pipes/lowercase.pipe';
 
 @Controller('work')
 export class WorkController {
@@ -14,10 +15,10 @@ export class WorkController {
         res.json({ message: 'This action returns all works', error: null, status: 'success' });
     }
 
-    @Get(':id')
-    findOne(@Req() req: Request, @Res() res: Response, @Param('id') id: string): void {
-        res.json({ message: `This action returns work #${id}`, error: null, status: 'success' });
-    }
+    // @Get(':id')
+    // findOne(@Req() req: Request, @Res() res: Response, @Param('id') id: string): void {
+    //     res.json({ message: `This action returns work #${id}`, error: null, status: 'success' });
+    // }
 
     @Post()
     postGoodbye(@Req() req: Request, @Res() res: Response, @Body() work: any): void {
@@ -46,6 +47,16 @@ export class WorkController {
     @UsePipes(new ParseIntPipe())
     double(@Query('value') value: number) {
         return { result: value * 2 };
+    }
+
+    // @Get(':name')
+    // getItem(@Param('name', UppercasePipe) name: string): string {
+    //     return `Received item name: ${name}`;
+    // }
+
+    @Get(':name')
+    getItem(@Param('name', LowercasePipe) name: string): string {
+        return `Received item name: ${name}`;
     }
 
 }

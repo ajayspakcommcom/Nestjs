@@ -15,7 +15,6 @@ async function bootstrap() {
 
   //app.setGlobalPrefix('api');
 
-
   app.enableCors({
     origin: ['http://localhost:3000'],
     methods: ["GET", "POST", "PUT", "DELETE"],
@@ -31,7 +30,6 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
-
 
   await app.listen(3000);
 }

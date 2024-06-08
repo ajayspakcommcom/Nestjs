@@ -1,0 +1,97 @@
+Let's create an application that manages users. We'll have a User entity, a UserRepository interface, and a UserRepositoryImpl concrete implementation.
+
+// user.entity.ts
+export class User {
+    id: number;
+    username: string;
+    email: string;
+}
+
+Next, let's create the UserRepository interface:
+
+// user.repository.interface.ts
+import { User } from './user.entity';
+
+export interface UserRepository {
+    findAll(): Promise<User[]>;
+    findById(id: number): Promise<User | null>;
+    findByUsername(username: string): Promise<User | null>;
+    create(user: Partial<User>): Promise<User>;
+    update(id: number, user: Partial<User>): Promise<User | null>;
+    delete(id: number): Promise<void>;
+}
+
+Now, let's implement the UserRepository interface:
+
+// user.repository.ts
+import { Injectable } from '@nestjs/common';
+import { User } from './user.entity';
+import { UserRepository } from './user.repository.interface';
+
+@Injectable()
+export class UserRepositoryImpl implements UserRepository {
+    private users: User[] = [];
+
+    async findAll(): Promise<User[]> {
+        return this.users;
+    }
+
+    async findById(id: number): Promise<User | null> {
+        return this.users.find(user => user.id === id) || null;
+    }
+
+    async findByUsername(username: string): Promise<User | null> {
+        return this.users.find(user => user.username === username) || null;
+    }
+
+    async create(user: Partial<User>): Promise<User> {
+        const newUser: User = { id: this.users.length + 1, ...user };
+        this.users.push(newUser);
+        return newUser;
+    }
+
+    async update(id: number, user: Partial<User>): Promise<User | null> {
+        const index = this.users.findIndex(u => u.id === id);
+        if (index === -1) return null;
+        const updatedUser = { ...this.users[index], ...user };
+        this.users[index] = updatedUser;
+        return updatedUser;
+    }
+
+    async delete(id: number): Promise<void> {
+        this.users = this.users.filter(user => user.id !== id);
+    }
+}
+
+
+Finally, let's create a UserService that interacts with the repository:
+
+// user.service.ts
+import { Injectable } from '@nestjs/common';
+import { User } from './user.entity';
+import { UserRepository } from './user.repository.interface';
+
+@Injectable()
+export class UserService {
+    constructor(private readonly userRepository: UserRepository) { }
+
+    async getAllUsers(): Promise<User[]> {
+        return this.userRepository.findAll();
+    }
+
+    async getUserById(id: number): Promise<User | null> {
+        return this.userRepository.findById(id);
+    }
+
+    async createUser(user: Partial<User>): Promise<User> {
+        return this.userRepository.create(user);
+    }
+
+    async updateUser(id: number, user: Partial<User>): Promise<User | null> {
+        return this.userRepository.update(id, user);
+    }
+
+    async deleteUser(id: number): Promise<void> {
+        return this.userRepository.delete(id);
+    }
+}
