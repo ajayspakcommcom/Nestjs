@@ -20,7 +20,6 @@ export class Task extends Document {
 
 export const TaskSchema = SchemaFactory.createForClass(Task);
 
-
 // import { Document } from 'mongoose';
 // import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
