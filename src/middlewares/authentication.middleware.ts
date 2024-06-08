@@ -14,7 +14,7 @@ export class AuthMiddleware implements NestMiddleware {
             const isAuthenticated = this.authService.login(username, password);
 
             if (!isAuthenticated) {
-                throw new UnauthorizedException('Unauthorized access');
+                throw new UnauthorizedException('Unauthorized Access');
             }
             // If the user is authenticated, proceed to the next middleware or route handler
             next();
