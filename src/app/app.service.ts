@@ -19,5 +19,4 @@ export class AppService {
     return 'Delete Hello!';
   }
 
-
 }

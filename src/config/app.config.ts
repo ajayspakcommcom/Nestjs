@@ -12,7 +12,6 @@ export default {
     // other configuration options
 };
 
-
 // // user.service.ts
 
 // import { Injectable } from '@nestjs/common';

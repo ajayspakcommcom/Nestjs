@@ -10,8 +10,7 @@ import { SampleService } from './sample.service';
 export class SampleModule implements OnModuleInit, OnModuleDestroy {
 
     onModuleInit() {
-        console.clear();
-        console.log('onModuleInit');
+
     }
 
     onModuleDestroy() {
